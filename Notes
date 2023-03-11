@@ -1,0 +1,49 @@
+1. Create Project with CLI :
+
+   dotnet new sln
+   dotnet new webapi -n API
+   dotnet new classlib -n Application
+   dotnet new classlib -n Domain
+   dotnet new classlib -n Persistence
+
+   dotnet sln add API/API.csproj
+   dotnet sln add Application/Application.csproj
+   dotnet sln add Domain/Domain.csproj
+   dotnet sln add Persistence/Persistence.csproj
+
+   cd API
+   dotnet add reference ../Application/Application.csproj
+   cd ../Application
+   dotnet add reference ../Domain/Domain.csproj
+   dotnet add reference ../Persistence/Persistence.csproj
+   cd ../Persistence
+   dotnet add reference ../Domain/Domain.csproj
+   cd ..
+
+   dotnet restore
+
+2. Configure the local environment in the LaunchSettings.json
+   "launchBrowser": false,
+   "applicationUrl": "http://localhost:5000",
+
+3. Configur Program.cs
+   remove https middleware
+
+4. Create an Entity Class in Domain Project
+5. Install EntityFrameworkCore.Sqlite from Nuget in Persistence Project
+6. Create an DataContext Class in Persistence Project
+7. Add a connection string to the appsettings.Development.json
+8. Configure Program.cs
+   add dbContext and connectionString
+9. Install dotnet EntityFramework tool
+   dotnet tool install --global dotnet-ef
+10. Do Database Migration
+    install Microsoft.EntityFrameworkCore.Design from Nuget in API Project
+    dotnet ef migrations add InitialCreate -s API -p Persistence
+11. Configure Program.cs
+    add automatic migrations above app.Run();
+12. Create Seed Class in Persistence Project
+13. Configure Program.cs
+    Call the static method on the seed class after the database migration code
+14. Create a BaseApiController class in the Controllers folder of the API project
+15. Create a CategoriesController class in the Controllers folder of the API project that inherits from the BaseApiController class
