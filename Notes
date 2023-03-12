@@ -47,3 +47,26 @@
     Call the static method on the seed class after the database migration code
 14. Create a BaseApiController class in the Controllers folder of the API project
 15. Create a CategoriesController class in the Controllers folder of the API project that inherits from the BaseApiController class
+16. Install MediatR.Extensions.Microsoft.DependencyInjection into Application Project
+17. Create a List class in the Categories folder of the Application Project
+18. Create Query and Handler class inside List class
+19. Configure Program.cs
+    add MediatR middleware
+20. Configure List Method on CategoriesController
+    use Mediator method to get List
+21. Create a Details class in the Categories folder of the Application Project
+22. Configure Details Method on CategoriesController
+    use Mediator method to get Details
+23. Create a Create class ini the Categories folder of the Application Project
+24. Create Command and Handler class inside Edit class
+25. Create Method EditCategory on CategoriesController
+26. Install AutoMapper.Extensions.Microsoft.DependencyInjection into Application Project
+27. Create Folder Core in Application Project
+28. Create MappingProfiles Class in Core folder of Application Project
+29. Create a Edit class ini the Categories folder of the Application Project
+30. Create Command and Handler class inside Edit class
+31. Create Method EditCategory on CategoriesController
+32. Create Extensions on API Project
+33. Create ApplicationServiceExtensions in Extensions folder of API Project
+34. Configure Program.cs
+    call ApplicationServiceExtensions static method
