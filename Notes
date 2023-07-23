@@ -63,10 +63,24 @@
 26. Install AutoMapper.Extensions.Microsoft.DependencyInjection into Application Project
 27. Create Folder Core in Application Project
 28. Create MappingProfiles Class in Core folder of Application Project
-29. Create a Edit class ini the Categories folder of the Application Project
+29. Create a Edit class in the Categories folder of the Application Project
 30. Create Command and Handler class inside Edit class
 31. Create Method EditCategory on CategoriesController
 32. Create Extensions on API Project
 33. Create ApplicationServiceExtensions in Extensions folder of API Project
 34. Configure Program.cs
     call ApplicationServiceExtensions static method
+35. Install FluentValidation.AspNetCore into Application Project
+36. Create a CategoryValidator class in the Categories folder of the Applicatoin Project
+37. Add CommandValidator class inside Create and Edit class
+38. Configure ApplicationServiceExtensions class
+    add FluentValidatior middleware
+39. Create a Result class in Core folder of Application Project
+40. add HandleResult method in BaseApiController in Controllers of API Project
+41. Call HandleResult method in every Controller in CategoriesController
+42. Call Result static method in CRUD Class in Category folder in Application Project
+43. Create AppException class in Core folder of Application Project
+44. Create Middleware folder in API Project
+45. Create ExceptionMiddleware class
+46. Configure Program.cs
+    add ExceptionMiddleware middleware

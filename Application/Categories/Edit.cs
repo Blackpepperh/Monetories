@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Core;
 using AutoMapper;
 using Domain;
+using FluentValidation;
 using MediatR;
 using Persistence;
 
@@ -11,12 +13,20 @@ namespace Application.Categories
 {
     public class Edit
     {
-        public class Command : IRequest
+        public class Command : IRequest<Result<Unit>>
         {
             public Category Category { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(x => x.Category).SetValidator(new CategoryValidator());
+            }
+        }
+
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -26,15 +36,19 @@ namespace Application.Categories
                 _context = context;
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var category = await _context.Categories.FindAsync(request.Category.Id);
 
+                if (category == null) return null;
+
                 _mapper.Map(request.Category, category);
 
-                await _context.SaveChangesAsync();
+                var result = await _context.SaveChangesAsync() > 0;
 
-                return Unit.Value;
+                if (!result) return Result<Unit>.Failure("Failure to update the category");
+
+                return Result<Unit>.Success(Unit.Value);
             }
         }
     }
