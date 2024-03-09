@@ -84,3 +84,30 @@
 45. Create ExceptionMiddleware class
 46. Configure Program.cs
     add ExceptionMiddleware middleware
+47. Create a AppUser class in The Domain folder
+48. install Microsoft.AspNetCore.Identity.EntityFrameworkCore from Nuget in Domain Project
+49. Change DataContext : Identity to DataContext :DataContext : IdentityDbContext<AppUser> in DataContext class in The Persistence folder
+50. Do Database Migration for Identity User
+    dotnet ef migrations add IdentityAdded -p Persistence -s API
+51. Create IdentityServiceExtentions in Extensions folder of API Project
+52. Configure Program.cs
+    call IdentityServiceExtentions static method
+53. Add Seed Users to Seed class in the Persistence Class
+54. Create a DTOs folder in the API folder
+55. Create LoginDto in the DTOs folder
+56. Create RegisterDto in the DTOs folder
+57. Create UsersDto in the DTO folder
+58. Create a AccountController class in the Controllers folder of the API project that inherits from the ControllerBase class
+59. Create a Services folder in the API folder
+60. Configure appsetting.json
+    add TokenKey
+61. Install System.IdentityModel.Tokens.Jwt from Nuget in API Project
+62. Create TokenService class in Services folder
+63. Configure IdentityServiceExtentions in Extentions folder
+    add services.AddScoped<TokenService>();
+64. Install Microsoft.AspNetCore.Authentication.JwtBearer from Nuget in API Project
+65. Configure IdentityServiceExtentions in Extentions folder
+    add services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) ...
+66. Configur Program.cs
+    add app.UseAuthentication(); before app.UseAuthorization();
+    add AuthorizationPolicyBuilder to AddControllers
