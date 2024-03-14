@@ -5,19 +5,24 @@
    dotnet new classlib -n Application
    dotnet new classlib -n Domain
    dotnet new classlib -n Persistence
+   dotnet new classlib -n Infrastructure
 
    dotnet sln add API/API.csproj
    dotnet sln add Application/Application.csproj
    dotnet sln add Domain/Domain.csproj
    dotnet sln add Persistence/Persistence.csproj
+   dotnet sln add Infrastructure/Infrastructure.csproj
 
    cd API
    dotnet add reference ../Application/Application.csproj
+   dotnet add reference ../Infrastructure/Infrastructure.csproj
    cd ../Application
    dotnet add reference ../Domain/Domain.csproj
    dotnet add reference ../Persistence/Persistence.csproj
    cd ../Persistence
    dotnet add reference ../Domain/Domain.csproj
+   cd ../Infrastructure
+   dotnet add reference ../Application/Application.csproj
    cd ..
 
    dotnet restore
@@ -111,3 +116,26 @@
 66. Configur Program.cs
     add app.UseAuthentication(); before app.UseAuthorization();
     add AuthorizationPolicyBuilder to AddControllers
+67. Create a Transaction class in Domain folder for many to many
+68. Configure AppUser class in Domain folder
+69. Configure SubCategory class in Domain folder
+70. Configure DataContext class in Persistence folder
+    add DbSet<Transaction> Transactions
+    create overriding method OnModelCreating
+71. Do Database Migration for Transaction
+    dotnet ef migrations add Transaction -s API -p Persistence
+72. Create Folder Interfaces in Application Folder
+73. Create IUserAccessor interface in Interfaces folder
+74. Create Folder Security in Infrastructure folder
+75. Create UserAccessor class in Security Folder
+76. Configure ApplicationServiceExtensions.cs in Application
+    services.AddHttpContextAccessor();
+    services.AddScoped<IUserAccessor, UserAccessor>();
+77. Create TransactionDto class in Transactions folder
+78. Create SubCategoryDto class in SubCategory folder
+79. Create AppUserDto class in AppUser folder
+80. Configure MappingProfiles in Core folder
+81. Create List class in Transactions folder
+82. Create Delete class in Transactions folder
+83. Create Create class in Transactions folder
+84. Create TransactionsControlleere class in Controllers folder

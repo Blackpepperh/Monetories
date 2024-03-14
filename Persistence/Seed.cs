@@ -69,6 +69,7 @@ namespace Persistence
                 }
             };
 
+
             await context.Categories.AddRangeAsync(categories);
             await context.SaveChangesAsync();
         }

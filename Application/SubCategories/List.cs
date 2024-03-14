@@ -1,3 +1,4 @@
+using Application.Categories;
 using Application.Core;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -6,13 +7,13 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.Categories
+namespace Application.SubCategories
 {
     public class List
     {
-        public class Query : IRequest<Result<List<CategoryDto>>> { }
+        public class Query : IRequest<Result<List<SubCategoryDto>>> { }
 
-        public class Handler : IRequestHandler<Query, Result<List<CategoryDto>>>
+        public class Handler : IRequestHandler<Query, Result<List<SubCategoryDto>>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -23,15 +24,16 @@ namespace Application.Categories
                 _context = context;
             }
 
-            public async Task<Result<List<CategoryDto>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<SubCategoryDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
 
-                var categories = await _context.Categories
-                    .ProjectTo<CategoryDto>(_mapper.ConfigurationProvider)
+                var subcategories = await _context.SubCategories
+                    .ProjectTo<SubCategoryDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 
-                return Result<List<CategoryDto>>.Success(categories);
+                return Result<List<SubCategoryDto>>.Success(subcategories);
             }
         }
+
     }
 }
