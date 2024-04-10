@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

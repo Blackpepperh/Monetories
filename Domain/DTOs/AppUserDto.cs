@@ -1,4 +1,4 @@
-namespace Application.User
+namespace Domain.DTOs
 {
     public class AppUserDto
     {

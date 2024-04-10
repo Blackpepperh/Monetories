@@ -1,9 +1,6 @@
 using API.Extensions;
 using API.Middleware;
-using Application.Categories;
-using Application.Core;
 using Domain;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;

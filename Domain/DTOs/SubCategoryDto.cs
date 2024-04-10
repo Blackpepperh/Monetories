@@ -1,6 +1,4 @@
-using Application.Categories;
-
-namespace Application.SubCategories
+namespace Domain.DTOs
 {
     public class SubCategoryDto
     {

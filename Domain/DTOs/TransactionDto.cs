@@ -1,7 +1,4 @@
-using Application.SubCategories;
-using Application.User;
-
-namespace Application.Transactions
+namespace Domain.DTOs
 {
     public class TransactionDto
     {

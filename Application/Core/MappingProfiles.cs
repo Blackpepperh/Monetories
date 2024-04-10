@@ -1,9 +1,6 @@
-using Application.Categories;
-using Application.SubCategories;
-using Application.Transactions;
-using Application.User;
 using AutoMapper;
 using Domain;
+using Domain.DTOs;
 
 namespace Application.Core
 {

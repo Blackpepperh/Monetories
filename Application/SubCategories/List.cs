@@ -1,8 +1,7 @@
-using Application.Categories;
 using Application.Core;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Domain;
+using Domain.DTOs;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
