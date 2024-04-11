@@ -7,6 +7,6 @@ namespace Domain
         public bool IsActive { get; set; }
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
-        public ICollection<Transaction> AppUser { get; set; } = new List<Transaction>();
+        public ICollection<Transaction> AppUsers { get; set; } = new List<Transaction>();
     }
 }

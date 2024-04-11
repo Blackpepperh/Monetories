@@ -11,11 +11,11 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("/api/[controller]")]
-    public class AccountController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly TokenService _tokenService;
-        public AccountController(UserManager<AppUser> userManager, TokenService tokenService)
+        public UsersController(UserManager<AppUser> userManager, TokenService tokenService)
         {
             _tokenService = tokenService;
             _userManager = userManager;

@@ -13,6 +13,8 @@ namespace Persistence
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Account> Accounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -29,13 +31,26 @@ namespace Persistence
 
             builder.Entity<Transaction>()
             .HasOne(x => x.AppUser)
-            .WithMany(x => x.SubCategory)
+            .WithMany(x => x.SubCategories)
             .HasForeignKey(x => x.AppUserId);
 
             builder.Entity<Transaction>()
             .HasOne(x => x.SubCategory)
-            .WithMany(x => x.AppUser)
+            .WithMany(x => x.AppUsers)
             .HasForeignKey(sc => sc.SubCategoryId);
+
+            //Account : AppUsers - Currencies
+            builder.Entity<Account>(x => x.HasKey(a => new { a.AccountId, a.CurrencyId, a.AppUserId }));
+
+            builder.Entity<Account>()
+            .HasOne(x => x.AppUser)
+            .WithMany(x => x.Currencies)
+            .HasForeignKey(x => x.AppUserId);
+
+            builder.Entity<Account>()
+            .HasOne(x => x.Currency)
+            .WithMany(x => x.AppUsers)
+            .HasForeignKey(x => x.CurrencyId);
         }
     }
 }

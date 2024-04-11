@@ -1,25 +1,14 @@
 using Application.Core;
-using Application.Validator;
-using Domain;
-using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Categories
+namespace Application.Accounts
 {
-    public class Create
+    public class Delete
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public Category Category { get; set; }
-        }
-
-        public class CommandValidator : AbstractValidator<Command>
-        {
-            public CommandValidator()
-            {
-                RuleFor(x => x.Category).SetValidator(new CategoryValidator());
-            }
+            public Guid AccountId { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -32,14 +21,19 @@ namespace Application.Categories
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                _context.Categories.Add(request.Category);
+                var account = await _context.Accounts.FindAsync(request.AccountId);
+
+                if (account == null) return null;
+
+                _context.Remove(account);
 
                 var result = await _context.SaveChangesAsync() > 0;
 
-                if (!result) return Result<Unit>.Failure("Failed to create category");
+                if (!result) return Result<Unit>.Failure("Failed to delete the account");
 
                 return Result<Unit>.Success(Unit.Value);
             }
         }
+
     }
 }

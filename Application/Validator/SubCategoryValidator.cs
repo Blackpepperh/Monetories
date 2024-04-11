@@ -1,7 +1,7 @@
 using Domain;
 using FluentValidation;
 
-namespace Application.SubCategories
+namespace Application.Validator
 {
     public class SubCategoryValidator : AbstractValidator<SubCategory>
     {

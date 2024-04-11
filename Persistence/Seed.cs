@@ -1,5 +1,6 @@
 using Domain;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Persistence
 {
@@ -29,7 +30,17 @@ namespace Persistence
                         PhoneNumber = "08991200505",
                         IsActive = true,
                         Email = "wuaicia@gmail.com",
-                        }
+                        },
+                    new AppUser{
+                        DisplayName = "Oli Si Sapi",
+                        BirthPlace ="Jakarta",
+                        BirthDate = "2023-05-22",
+                        UserName = "oli",
+                        PhoneNumber = "089777171",
+                        IsActive = false,
+                        Email = "oli@gmail.com",
+                        },
+
                 };
 
                 foreach (var user in users)
@@ -47,30 +58,72 @@ namespace Persistence
                 {
                     Name = "Category 1",
                     Type = "Expense",
-                    IsActive = true,
-                    SubCategories = new List<SubCategory>
-                    {
-                        new SubCategory{ Name = "Subcategory 1", IsActive = true },
-                        new SubCategory{ Name = "Subcategory 2", IsActive = true },
-                        new SubCategory{ Name = "Subcategory 3", IsActive = true }
-                    }
+                    IsActive = true
                 },
                 new Category
                 {
                     Name = "Category 2",
                     Type = "Income",
-                    IsActive = true,
-                    SubCategories = new List<SubCategory>
-                    {
-                        new SubCategory{ Name = "Subcategory 4", IsActive = true },
-                        new SubCategory{ Name = "Subcategory 5", IsActive = true },
-                        new SubCategory { Name = "Subcategory 6", IsActive = true }
-                    }
+                    IsActive = true
+                },
+                new Category
+                {
+                    Name = "Category 3",
+                    Type = "Income",
+                    IsActive = false
                 }
             };
 
+            if (context.SubCategories.Any()) return;
+
+            var subCategories = new List<SubCategory>
+            {
+                new SubCategory
+                    {
+                        Name = "Sub Category 1",
+                        IsActive = true,
+                        Category = categories[0],
+                    },
+                new SubCategory
+                    {
+                        Name = "Sub Category 2",
+                        IsActive = true,
+                        Category = categories[0],
+                    },
+                new SubCategory
+                    {
+                        Name = "Sub Category 3",
+                        IsActive = false,
+                        Category = categories[0],
+                    },
+                new SubCategory
+                    {
+                        Name = "Sub Category 4",
+                        IsActive = false,
+                        Category = categories[0],
+                    },
+                new SubCategory
+                    {
+                        Name = "Sub Category 5",
+                        IsActive = true,
+                        Category = categories[1],
+                    },
+                new SubCategory
+                    {
+                        Name = "Sub Category 6",
+                        IsActive = true,
+                        Category = categories[1],
+                    },
+                new SubCategory
+                    {
+                        Name = "Sub Category 7",
+                        IsActive = true,
+                        Category = categories[1],
+                    }
+            };
 
             await context.Categories.AddRangeAsync(categories);
+            await context.SubCategories.AddRangeAsync(subCategories);
             await context.SaveChangesAsync();
         }
     }

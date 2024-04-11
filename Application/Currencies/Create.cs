@@ -5,20 +5,20 @@ using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Categories
+namespace Application.Currencies
 {
     public class Create
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public Category Category { get; set; }
+            public Currency Currency { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x => x.Category).SetValidator(new CategoryValidator());
+                RuleFor(x => x.Currency).SetValidator(new CurrencyValidator());
             }
         }
 
@@ -32,11 +32,11 @@ namespace Application.Categories
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                _context.Categories.Add(request.Category);
+                _context.Currencies.Add(request.Currency);
 
                 var result = await _context.SaveChangesAsync() > 0;
 
-                if (!result) return Result<Unit>.Failure("Failed to create category");
+                if (!result) return Result<Unit>.Failure("Failed to create Currency");
 
                 return Result<Unit>.Success(Unit.Value);
             }

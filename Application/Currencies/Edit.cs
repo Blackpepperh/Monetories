@@ -1,42 +1,50 @@
+
 using Application.Core;
 using Application.Validator;
+using AutoMapper;
 using Domain;
 using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Categories
+namespace Application.Currencies
 {
-    public class Create
+    public class Edit
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public Category Category { get; set; }
+            public Currency Currency { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x => x.Category).SetValidator(new CategoryValidator());
+                RuleFor(x => x.Currency).SetValidator(new CurrencyValidator());
             }
         }
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IMapper _mapper;
+            public Handler(DataContext context, IMapper mapper)
             {
+                _mapper = mapper;
                 _context = context;
             }
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                _context.Categories.Add(request.Category);
+                var Currency = await _context.Currencies.FindAsync(request.Currency.CurrencyId);
+
+                if (Currency == null) return null;
+
+                _mapper.Map(request.Currency, Currency);
 
                 var result = await _context.SaveChangesAsync() > 0;
 
-                if (!result) return Result<Unit>.Failure("Failed to create category");
+                if (!result) return Result<Unit>.Failure("Failure to update the Currency");
 
                 return Result<Unit>.Success(Unit.Value);
             }
