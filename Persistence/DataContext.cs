@@ -13,13 +13,14 @@ namespace Persistence
         public DbSet<Category> Categories { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<TransactionHeader> TransactionHeaders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             //Account : AppUsers - Currencies
-            builder.Entity<Account>(x => x.HasKey(a => new { a.AccountId, a.CurrencyId, a.AppUserId }));
+            // builder.Entity<Account>(x => x.HasKey(a => new { a.AccountId, a.CurrencyId, a.AppUserId }));
 
             builder.Entity<Account>()
             .HasOne(x => x.AppUser)
@@ -30,6 +31,12 @@ namespace Persistence
             .HasOne(x => x.Currency)
             .WithMany(x => x.AppUsers)
             .HasForeignKey(x => x.CurrencyId);
+
+            //Account - TransactionHeader
+            builder.Entity<TransactionHeader>()
+            .HasOne(x => x.Account)
+            .WithMany(x => x.TransactionHeaders)
+            .HasForeignKey(x => x.AccountId);
         }
     }
 }

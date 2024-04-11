@@ -9,5 +9,6 @@ namespace Domain
         public string AppUserId { get; set; }
         public Currency Currency { get; set; }
         public Guid CurrencyId { get; set; }
+        public ICollection<TransactionHeader> TransactionHeaders { get; set; } = new List<TransactionHeader>();
     }
 }

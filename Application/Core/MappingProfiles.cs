@@ -14,6 +14,7 @@ namespace Application.Core
             CreateMap<Account, AccountDto>()
                 .ForMember(dest => dest.AppUser, opt => opt.MapFrom(src => src.AppUser))
                 .ForMember(dest => dest.Currency, opt => opt.MapFrom(src => src.Currency));
+            CreateMap<TransactionHeader, TransactionHeaderDto>();
 
         }
     }

@@ -1,6 +1,6 @@
+using System.Formats.Asn1;
 using Domain;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Persistence
 {
@@ -9,9 +9,8 @@ namespace Persistence
         public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
 
-            if (!userManager.Users.Any())
-            {
-                var users = new List<AppUser>
+            if (userManager.Users.Any()) return;
+            var users = new List<AppUser>
                 {
                     new AppUser{
                         DisplayName = "Hendro Ang Handaka",
@@ -43,10 +42,9 @@ namespace Persistence
 
                 };
 
-                foreach (var user in users)
-                {
-                    await userManager.CreateAsync(user, "password");
-                }
+            foreach (var user in users)
+            {
+                await userManager.CreateAsync(user, "password");
             }
 
 
@@ -105,7 +103,154 @@ namespace Persistence
 
             };
 
+            if (context.Currencies.Any()) return;
+            var currencies = new List<Currency>
+            {
+                new Currency
+                {
+                    CurrencyName = "Indonesia Rupiah",
+                    CurrencyOrigin = "Indonesia",
+                    CurrencySymbol = "Rp",
+                    IsActive = true
+                },
+                new Currency
+                {
+                    CurrencyName = "Singapore Dollar",
+                    CurrencyOrigin = "Singapore",
+                    CurrencySymbol = "S$",
+                    IsActive = true
+                },
+                new Currency
+                {
+                    CurrencyName = "US Dollar",
+                    CurrencyOrigin = "United States",
+                    CurrencySymbol = "$",
+                    IsActive = true
+                },
+                new Currency
+                {
+                    CurrencyName = "Pound Sterling",
+                    CurrencyOrigin = "United Kingdom",
+                    CurrencySymbol = "£",
+                    IsActive = false
+                },
+                new Currency
+                {
+                    CurrencyName = "Japanese Yen",
+                    CurrencyOrigin = "Japan",
+                    CurrencySymbol = "¥",
+                    IsActive = false
+                },
+                new Currency
+                {
+                    CurrencyName = "Bitcoin",
+                    CurrencyOrigin = "World Wide",
+                    CurrencySymbol = "₿",
+                    IsActive = false
+                },
+            };
+
+            if (context.Accounts.Any()) return;
+
+            var accounts = new List<Account>
+            {
+                new Account
+                {
+                    AccountName = "General Account",
+                    IsActive = true,
+                    AppUser = users[0],
+                    Currency = currencies[0],
+                },
+                new Account
+                {
+                    AccountName = "General Account",
+                    IsActive = true,
+                    AppUser = users[1],
+                    Currency = currencies[0],
+                },
+                new Account
+                {
+                    AccountName = "Investment Account",
+                    IsActive = true,
+                    AppUser = users[1],
+                    Currency = currencies[0],
+                },
+                new Account
+                {
+                    AccountName = "Crypto Account",
+                    IsActive = false,
+                    AppUser = users[1],
+                    Currency = currencies[5],
+                },
+            };
+
+            if (context.TransactionHeaders.Any()) return;
+
+            var transactionHeaders = new List<TransactionHeader>()
+            {
+                new TransactionHeader
+                {
+                    TransactionDate = DateTime.Now,
+                    TotalInAmount = 0,
+                    TotalOutAmount = 500000,
+                    Account = accounts[0],
+                },
+                new TransactionHeader
+                {
+                    TransactionDate = DateTime.Now.AddDays(-2),
+                    TotalInAmount = 0,
+                    TotalOutAmount = 100000,
+                    Account = accounts[0],
+                },
+                new TransactionHeader
+                {
+                    TransactionDate = DateTime.Now.AddDays(-3),
+                    TotalInAmount = 0,
+                    TotalOutAmount = 550000,
+                    Account = accounts[0],
+                },
+                new TransactionHeader
+                {
+                    TransactionDate = DateTime.Now.AddDays(-4),
+                    TotalInAmount = 20000,
+                    TotalOutAmount = 50000,
+                    Account = accounts[0],
+                },
+                new TransactionHeader
+                {
+                    TransactionDate = DateTime.Now,
+                    TotalInAmount = 0,
+                    TotalOutAmount = 300000,
+                    Account = accounts[1],
+                },
+                new TransactionHeader
+                {
+                    TransactionDate = DateTime.Now.AddDays(-2),
+                    TotalInAmount = 0,
+                    TotalOutAmount = 13000,
+                    Account = accounts[1],
+                },
+                new TransactionHeader
+                {
+                    TransactionDate = DateTime.Now.AddDays(-3),
+                    TotalInAmount = 0,
+                    TotalOutAmount = 24000,
+                    Account = accounts[1],
+                },
+                new TransactionHeader
+                {
+                    TransactionDate = DateTime.Now.AddDays(-4),
+                    TotalInAmount = 20000,
+                    TotalOutAmount = 0,
+                    Account = accounts[1],
+                },
+            };
+
+
+            await context.Currencies.AddRangeAsync(currencies);
             await context.Categories.AddRangeAsync(categories);
+            await context.Accounts.AddRangeAsync(accounts);
+            await context.TransactionHeaders.AddRangeAsync(transactionHeaders);
             await context.SaveChangesAsync();
         }
     }
