@@ -9,7 +9,7 @@ namespace Application.Categories
     {
         public class Query : IRequest<Result<Category>>
         {
-            public Guid Id { get; set; }
+            public Guid CategoryId { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, Result<Category>>
@@ -22,7 +22,7 @@ namespace Application.Categories
 
             public async Task<Result<Category>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var category = await _context.Categories.FindAsync(request.Id);
+                var category = await _context.Categories.FindAsync(request.CategoryId);
 
                 return Result<Category>.Success(category);
             }

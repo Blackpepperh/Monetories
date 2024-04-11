@@ -56,74 +56,56 @@ namespace Persistence
             {
                 new Category
                 {
-                    Name = "Category 1",
-                    Type = "Expense",
+                    CategoryName = "Category 1",
+                    CategoryGroup = "Category Group 1",
                     IsActive = true
                 },
                 new Category
                 {
-                    Name = "Category 2",
-                    Type = "Income",
+                    CategoryName = "Category 2",
+                    CategoryGroup = "Category Group 1",
                     IsActive = true
                 },
                 new Category
                 {
-                    Name = "Category 3",
-                    Type = "Income",
-                    IsActive = false
-                }
-            };
+                    CategoryName = "Category 3",
+                    CategoryGroup = "Category Group 1",
+                    IsActive = true
+                },
+                new Category
+                {
+                    CategoryName = "Category 1",
+                    CategoryGroup = "Category Group 2",
+                    IsActive = true
+                },
+                new Category
+                {
+                    CategoryName = "Category 1",
+                    CategoryGroup = "Category Group 2",
+                    IsActive = true
+                },
+                new Category
+                {
+                    CategoryName = "Category 3",
+                    CategoryGroup = "Category Group 2",
+                    IsActive = true
+                },
+                new Category
+                {
+                    CategoryName = "Category 2",
+                    CategoryGroup = "Category Group 3",
+                    IsActive = true
+                },
+                new Category
+                {
+                    CategoryName = "Category 4",
+                    CategoryGroup = "Category Group 2",
+                    IsActive = true
+                },
 
-            if (context.SubCategories.Any()) return;
-
-            var subCategories = new List<SubCategory>
-            {
-                new SubCategory
-                    {
-                        Name = "Sub Category 1",
-                        IsActive = true,
-                        Category = categories[0],
-                    },
-                new SubCategory
-                    {
-                        Name = "Sub Category 2",
-                        IsActive = true,
-                        Category = categories[0],
-                    },
-                new SubCategory
-                    {
-                        Name = "Sub Category 3",
-                        IsActive = false,
-                        Category = categories[0],
-                    },
-                new SubCategory
-                    {
-                        Name = "Sub Category 4",
-                        IsActive = false,
-                        Category = categories[0],
-                    },
-                new SubCategory
-                    {
-                        Name = "Sub Category 5",
-                        IsActive = true,
-                        Category = categories[1],
-                    },
-                new SubCategory
-                    {
-                        Name = "Sub Category 6",
-                        IsActive = true,
-                        Category = categories[1],
-                    },
-                new SubCategory
-                    {
-                        Name = "Sub Category 7",
-                        IsActive = true,
-                        Category = categories[1],
-                    }
             };
 
             await context.Categories.AddRangeAsync(categories);
-            await context.SubCategories.AddRangeAsync(subCategories);
             await context.SaveChangesAsync();
         }
     }

@@ -2,9 +2,9 @@ namespace Domain.DTOs
 {
     public class CategoryDto
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
+        public Guid CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public string CategoryGroup { get; set; }
         public bool IsActive { get; set; }
     }
 }

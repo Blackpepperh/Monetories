@@ -35,7 +35,7 @@ namespace Application.Categories
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var category = await _context.Categories.FindAsync(request.Category.Id);
+                var category = await _context.Categories.FindAsync(request.Category.CategoryId);
 
                 if (category == null) return null;
 

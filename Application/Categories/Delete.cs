@@ -8,7 +8,7 @@ namespace Application.Categories
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public Guid Id { get; set; }
+            public Guid CategoryId { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -21,7 +21,7 @@ namespace Application.Categories
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var category = await _context.Categories.FindAsync(request.Id);
+                var category = await _context.Categories.FindAsync(request.CategoryId);
 
                 if (category == null) return null;
 
