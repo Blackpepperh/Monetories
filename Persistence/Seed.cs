@@ -246,11 +246,82 @@ namespace Persistence
                 },
             };
 
+            if (context.TransactionDetails.Any()) return;
+
+            var transactionDetails = new List<TransactionDetail>
+            {
+                new TransactionDetail
+                {
+                 TransactionAmount = 25000,
+                 TransactionType = "Expense",
+                 Notes = "Jajan",
+                 TransactionHeader = transactionHeaders[0],
+                 Category = categories[0]
+                },
+                new TransactionDetail
+                {
+                 TransactionAmount = 25000,
+                 TransactionType = "Expense",
+                 Notes = "Jajan",
+                 TransactionHeader = transactionHeaders[0],
+                 Category = categories[0]
+                },
+                new TransactionDetail
+                {
+                 TransactionAmount = 50000,
+                 TransactionType = "Expense",
+                 Notes = "Jajan",
+                 TransactionHeader = transactionHeaders[1],
+                 Category = categories[0]
+                },
+                new TransactionDetail
+                {
+                 TransactionAmount = 25000,
+                 TransactionType = "Expense",
+                 Notes = "Jajan",
+                 TransactionHeader = transactionHeaders[1],
+                 Category = categories[2]
+                },
+                new TransactionDetail
+                {
+                 TransactionAmount = 25000,
+                 TransactionType = "Expense",
+                 Notes = "Jajan",
+                 TransactionHeader = transactionHeaders[1],
+                 Category = categories[2]
+                },
+                 new TransactionDetail
+                {
+                 TransactionAmount = 50000,
+                 TransactionType = "Expense",
+                 Notes = "Jajan",
+                 TransactionHeader = transactionHeaders[1],
+                 Category = categories[0]
+                },
+                new TransactionDetail
+                {
+                 TransactionAmount = 25000,
+                 TransactionType = "Expense",
+                 Notes = "Jajan",
+                 TransactionHeader = transactionHeaders[1],
+                 Category = categories[2]
+                },
+                new TransactionDetail
+                {
+                 TransactionAmount = 25000,
+                 TransactionType = "Expense",
+                 Notes = "Jajan",
+                 TransactionHeader = transactionHeaders[1],
+                 Category = categories[2]
+                },
+
+            };
 
             await context.Currencies.AddRangeAsync(currencies);
             await context.Categories.AddRangeAsync(categories);
             await context.Accounts.AddRangeAsync(accounts);
             await context.TransactionHeaders.AddRangeAsync(transactionHeaders);
+            await context.TransactionDetails.AddRangeAsync(transactionDetails);
             await context.SaveChangesAsync();
         }
     }

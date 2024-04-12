@@ -6,5 +6,6 @@ namespace Domain
         public string CategoryName { get; set; }
         public string CategoryGroup { get; set; }
         public bool IsActive { get; set; }
+        public ICollection<TransactionDetail> TransactionHeaders { get; set; }
     }
 }

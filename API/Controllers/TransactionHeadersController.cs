@@ -1,41 +1,41 @@
-using Application.TransactionHeaders;
+using Application.TransactionDetails;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class TransactionHeadersController : BaseApiController
+    public class TransactionDetailsController : BaseApiController
     {
         [HttpGet]
-        public async Task<ActionResult<List<TransactionHeader>>> GetTransactionHeaders()
+        public async Task<ActionResult<List<TransactionDetail>>> GetTransactionDetails()
         {
             return HandleResult(await Mediator.Send(new List.Query()));
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetTransactionHeader(Guid id)
+        public async Task<IActionResult> GetTransactionDetail(Guid id)
         {
-            return HandleResult(await Mediator.Send(new Details.Query { TransactionHeaderId = id }));
+            return HandleResult(await Mediator.Send(new Details.Query { TransactionDetailId = id }));
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTransactionHeader(TransactionHeader transactionHeader)
+        public async Task<IActionResult> CreateTransactionDetail(TransactionDetail transactionDetail)
         {
-            return HandleResult(await Mediator.Send(new Create.Command { TransactionHeader = transactionHeader }));
+            return HandleResult(await Mediator.Send(new Create.Command { TransactionDetail = transactionDetail }));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditTransactionHeader(Guid id, TransactionHeader transactionHeader)
+        public async Task<IActionResult> EditTransactionDetail(Guid id, TransactionDetail transactionDetail)
         {
-            transactionHeader.TransactionHeaderId = id;
+            transactionDetail.TransactionDetailId = id;
 
-            return HandleResult(await Mediator.Send(new Edit.Command { TransactionHeader = transactionHeader }));
+            return HandleResult(await Mediator.Send(new Edit.Command { TransactionDetail = transactionDetail }));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTransactionHeader(Guid id)
+        public async Task<IActionResult> DeleteTransactionDetail(Guid id)
         {
-            return HandleResult(await Mediator.Send(new Delete.Command { TransactionHeaderId = id }));
+            return HandleResult(await Mediator.Send(new Delete.Command { TransactionDetailId = id }));
         }
     }
 }

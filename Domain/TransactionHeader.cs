@@ -8,6 +8,6 @@ namespace Domain
         public decimal TotalOutAmount { get; set; }
         public Account Account { get; set; }
         public Guid AccountId { get; set; }
-
+        public ICollection<TransactionDetail> Categories { get; set; }
     }
 }
